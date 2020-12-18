@@ -25,23 +25,22 @@ var root = new Vue({
     searchString: '',
     movies: [],
     // moviesCovers: [],
-    imgSrc: ''
+    startImgSrc: 'https://image.tmdb.org/t/p/w220_and_h330_face/',
   },
   methods: {
     searchMovie: function () {
       console.log(this.searchString);
+      this.movies = [],
           axios
           .get('https://api.themoviedb.org/3/search/movie?api_key=9465910b329a81a6e089bd8b3ea2ac56&query=' + this.searchString + '&language=it-IT')
           .then( (result) => {
             result.data.results.forEach((item, i) => {
-              this.movies.push(item)
-              const startImgSrc = 'https://image.tmdb.org/t/p/w220_and_h330_face/'
-              this.imgSrc = startImgSrc + item.poster_path;
-              this.moviesCovers.push(this.imgSrc);
+              this.movies.push(item);
               console.log(item.poster_path);
-              // console.log(this.moviesCovers);
-            });
-         }
+              this.searchString = '';
+            }
+          );
+        }
       );
     }
   }

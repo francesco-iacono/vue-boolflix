@@ -38,28 +38,20 @@
       <main>
         <div id="movies-container">
           <!-- movie-box -->
-          <div class="movie-cover">
-            <div class="layover-info">
-              <ul class="list-info">
-                <li> <span>Titolo:</span> lorem</li>
-                <li><span>Titolo Originale:</span> lorem ipsum lorem</li>
-                <li><span>Voto:</span></li>
-                <li><span>Overview:</span> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</li>
-              </ul>
-            </div>
-            <img src="https://i.pinimg.com/originals/a2/34/75/a234753b69e3bd27b7f1d448956c38af.jpg" alt="">
-          </div>
-          <!-- /movie-box -->
           <div v-for="movie in movies" class="movie-cover">
             <div class="layover-info">
               <ul class="list-info">
                 <li> <span>Titolo:</span> {{ movie.title }}</li>
-                <li><span>Titolo Originale:</span> {{ movie.original_title }</li>
+                <li><span>Titolo Originale:</span> {{ movie.original_title }}</li>
                 <li><span>Voto:</span></li>
                 <li><span>Overview:</span> {{ movie.overview }}</li>
               </ul>
             </div>
-            <img src="" alt="">
+            <img v-if="movie.poster_path != null" :src="startImgSrc + movie.poster_path" alt="">
+            <div v-else-if="movie.poster_path == null" class="img-null">
+              <h6>Copertina non trovata</h6>
+              <h3> {{ movie.title }} </h3>
+            </div>
           </div>
           <!-- /movie-box -->
         </div>
