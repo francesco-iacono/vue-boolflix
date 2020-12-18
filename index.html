@@ -27,8 +27,8 @@
         <!-- right -->
         <div class="header-right">
           <div id="search">
-            <i class="fas fa-search"></i>
-            <input type="text" name="" value="" placeholder="titoli, personaggi e generi">
+            <i @click="searchMovie" class="fas fa-search"></i>
+            <input type="text" name="" value=""  v-model="searchString" placeholder="titoli, personaggi e generi">
           </div>
         </div>
         <!-- /right -->
@@ -48,6 +48,18 @@
               </ul>
             </div>
             <img src="https://i.pinimg.com/originals/a2/34/75/a234753b69e3bd27b7f1d448956c38af.jpg" alt="">
+          </div>
+          <!-- /movie-box -->
+          <div v-for="movie in movies" class="movie-cover">
+            <div class="layover-info">
+              <ul class="list-info">
+                <li> <span>Titolo:</span> {{ movie.title }}</li>
+                <li><span>Titolo Originale:</span> {{ movie.original_title }</li>
+                <li><span>Voto:</span></li>
+                <li><span>Overview:</span> {{ movie.overview }}</li>
+              </ul>
+            </div>
+            <img src="" alt="">
           </div>
           <!-- /movie-box -->
         </div>
