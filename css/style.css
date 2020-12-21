@@ -61,7 +61,7 @@ main {
   margin: 10px;
   border: 1px solid #ffff;
   cursor: pointer;
-  transition: 1s;
+  transition: 0.8s;
   /* 220px X 330px */
 }
 .movie-cover:hover {

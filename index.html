@@ -43,17 +43,29 @@
             >
             <div class="layover-info">
               <ul class="list-info">
-                <li><span>Titolo:</span> {{ movie.title }}</li>
-                <li><span>Titolo Originale:</span> {{ movie.original_title }}</li>
+                <!-- Titolo -->
+                <li v-if="movie.title"><span>Titolo:</span> {{ movie.title }}</li>
+                <li v-else="movie.name"><span>Titolo:</span> {{ movie.name }}</li>
+                <!-- Titolo -->
+                <!-- Titolo Originale -->
+                <li v-if="movie.original_title"><span>Titolo Originale:</span> {{ movie.original_title }}</li>
+                <li v-else="movie.original_name"><span>Titolo Originale:</span> {{ movie.original_name }}</li>
+                <!-- /Titolo Originale -->
+                <!-- Voto -->
                 <li><span>Voto:</span>
                   <i v-for="n in voteStar[index]" class="fas fa-star"></i>
                   <i v-for="n in voteEmpty[index]" class="far fa-star"></i>
                  </li>
+                 <!-- /Voto -->
+                 <!-- Lingua -->
                  <li v-if="((movie.original_language == 'it') || (movie.original_language == 'en') || (movie.original_language == 'fr')) "><span>Lingua Originale:</span> <div
                   class="languages"
                   :class="movie.original_language"
                  ></div></li>
+                 <!-- /Lingua -->
+                 <!-- Overview -->
                 <li v-if="movie.overview != ''"><span>Overview:</span> {{ movie.overview }}</li>
+                <!-- /Overview -->
               </ul>
             </div>
             <img v-if="movie.poster_path != null" :src="startImgSrc + movie.poster_path" alt="">

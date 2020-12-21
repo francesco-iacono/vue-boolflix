@@ -37,7 +37,7 @@ var root = new Vue({
           .get('https://api.themoviedb.org/3/search/movie',{
             params: {
             api_key:'9465910b329a81a6e089bd8b3ea2ac56',
-            query: this.searchString ,
+            query: this.searchString,
             language: 'it-IT'
           }})
           .then( (result) => {
@@ -52,14 +52,35 @@ var root = new Vue({
           );
         }
       );
+      axios
+          .get('https:api.themoviedb.org/3/search/tv',{
+            params: {
+            api_key:'9465910b329a81a6e089bd8b3ea2ac56',
+            query: this.searchString,
+            language: 'it-IT'
+          }})
+          .then( (result) => {
+            this.tvShows = result.data.results;
+            this.allCollections = [...this.movies,...this.tvShows];
+            console.log(this.allCollections);
+            this.allCollections.forEach((item, i) => {
+              let voteStar = Math.ceil(item.vote_average / 2);
+              let voteEmpty = 5 - voteStar;
+              this.voteStar.push(voteStar);
+              this.voteEmpty.push(voteEmpty);
+              console.log(this.voteStar);
+            }
+          );
+        }
+      );
     }
   },
   mounted: function () {
         axios
-        .get('https://api.themoviedb.org/3/search/movie',{
+        .get('https://api.themoviedb.org/3/search/movie?',{
           params: {
           api_key:'9465910b329a81a6e089bd8b3ea2ac56',
-          query: 'suits' ,
+          query: 'Ritorno',
           language: 'it-IT'
         }})
         .then( (result) => {
@@ -77,20 +98,19 @@ var root = new Vue({
         .get('https:api.themoviedb.org/3/search/tv',{
           params: {
           api_key:'9465910b329a81a6e089bd8b3ea2ac56',
-          query: 'suits' ,
+          query: 'Ritorno',
           language: 'it-IT'
         }})
         .then( (result) => {
           this.tvShows = result.data.results;
           this.allCollections = [...this.movies,...this.tvShows];
-          console.log(this.movies);
-          console.log(this.tvShows);
           console.log(this.allCollections);
-          result.data.results.forEach((item, i) => {
+          this.allCollections.forEach((item, i) => {
             let voteStar = Math.ceil(item.vote_average / 2);
             let voteEmpty = 5 - voteStar;
             this.voteStar.push(voteStar);
             this.voteEmpty.push(voteEmpty);
+            console.log(this.voteStar);
           }
         );
       }
