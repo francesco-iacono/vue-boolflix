@@ -38,16 +38,22 @@
       <main>
         <div id="movies-container">
           <!-- movie-box -->
-          <div v-for="movie in movies"
-            v-if="movie.poster_path != null"
+          <div v-for="(movie, index) in allCollections"
             class="movie-cover"
             >
             <div class="layover-info">
               <ul class="list-info">
-                <li> <span>Titolo:</span> {{ movie.title }}</li>
+                <li><span>Titolo:</span> {{ movie.title }}</li>
                 <li><span>Titolo Originale:</span> {{ movie.original_title }}</li>
-                <li><span>Voto:</span></li>
-                <li><span>Overview:</span> {{ movie.overview }}</li>
+                <li><span>Voto:</span>
+                  <i v-for="n in voteStar[index]" class="fas fa-star"></i>
+                  <i v-for="n in voteEmpty[index]" class="far fa-star"></i>
+                 </li>
+                 <li v-if="((movie.original_language == 'it') || (movie.original_language == 'en') || (movie.original_language == 'fr')) "><span>Lingua Originale:</span> <div
+                  class="languages"
+                  :class="movie.original_language"
+                 ></div></li>
+                <li v-if="movie.overview != ''"><span>Overview:</span> {{ movie.overview }}</li>
               </ul>
             </div>
             <img v-if="movie.poster_path != null" :src="startImgSrc + movie.poster_path" alt="">
