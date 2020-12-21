@@ -32,7 +32,12 @@ var root = new Vue({
       console.log(this.searchString);
       this.movies = [],
           axios
-          .get('https://api.themoviedb.org/3/search/movie?api_key=9465910b329a81a6e089bd8b3ea2ac56&query=' + this.searchString + '&language=it-IT')
+          .get('https://api.themoviedb.org/3/search/movie?',{
+            params: {
+            api_key:'9465910b329a81a6e089bd8b3ea2ac56',
+            query: this.searchString ,
+            language: 'it-IT'
+          }})
           .then( (result) => {
             result.data.results.forEach((item, i) => {
               this.movies.push(item);
@@ -43,5 +48,22 @@ var root = new Vue({
         }
       );
     }
+  },
+  mounted: function () {
+        axios
+        .get('https://api.themoviedb.org/3/search/movie?',{
+          params: {
+          api_key:'9465910b329a81a6e089bd8b3ea2ac56',
+          query: 'Il Gladiatore' ,
+          language: 'it-IT'
+        }})
+        .then( (result) => {
+          result.data.results.forEach((item, i) => {
+            this.movies.push(item);
+          }
+        );
+      }
+    );
+    }
   }
-});
+);

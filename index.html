@@ -38,7 +38,10 @@
       <main>
         <div id="movies-container">
           <!-- movie-box -->
-          <div v-for="movie in movies" class="movie-cover">
+          <div v-for="movie in movies"
+            v-if="movie.poster_path != null"
+            class="movie-cover"
+            >
             <div class="layover-info">
               <ul class="list-info">
                 <li> <span>Titolo:</span> {{ movie.title }}</li>

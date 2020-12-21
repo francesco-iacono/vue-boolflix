@@ -92,14 +92,26 @@ main {
   font-size: 12px;
   background-color: #141414;
   color: #ffff;
-  overflow: hidden;
+  overflow-y: auto;
   text-overflow: ellipsis;
   opacity: 0;
   transition: all 0.5s;
 }
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
 .movie-cover:hover .layover-info {
   opacity: 1;
-  /* transition-duration: 1s; */
 }
 .list-info {
   list-style-type: none;
