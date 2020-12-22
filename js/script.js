@@ -26,32 +26,11 @@ var root = new Vue({
     movies: [],
     tvShows: [],
     allCollections: [],
-    voteStar: [],
-    voteEmpty: [],
     startImgSrc: 'https://image.tmdb.org/t/p/w220_and_h330_face/',
   },
   methods: {
     searchMovie: function () {
-      this.movies = [],
-          axios
-          .get('https://api.themoviedb.org/3/search/movie',{
-            params: {
-            api_key:'9465910b329a81a6e089bd8b3ea2ac56',
-            query: this.searchString,
-            language: 'it-IT'
-          }})
-          .then( (result) => {
-            this.movies = result.data.results;
-            result.data.results.forEach((item, i) => {
-              let voteStar = Math.ceil(item.vote_average / 2);
-              let voteEmpty = 5 - voteStar;
-              this.voteStar.push(voteStar);
-              this.voteEmpty.push(voteEmpty);
-              this.searchString = '';
-            }
-          );
-        }
-      );
+      this.tvShows = [],
       axios
           .get('https:api.themoviedb.org/3/search/tv',{
             params: {
@@ -60,60 +39,81 @@ var root = new Vue({
             language: 'it-IT'
           }})
           .then( (result) => {
-            this.tvShows = result.data.results;
-            this.allCollections = [...this.movies,...this.tvShows];
-            console.log(this.allCollections);
-            this.allCollections.forEach((item, i) => {
+            result.data.results.forEach((item, i) => {
               let voteStar = Math.ceil(item.vote_average / 2);
               let voteEmpty = 5 - voteStar;
-              this.voteStar.push(voteStar);
-              this.voteEmpty.push(voteEmpty);
-              console.log(this.voteStar);
+              const newObjTvShow = {...item, voteStar: voteStar, voteEmpty: voteEmpty}
+              this.tvShows.push(newObjTvShow);
             }
           );
         }
       );
+      this.movies = [],
+      axios
+          .get('https://api.themoviedb.org/3/search/movie',{
+            params: {
+            api_key:'9465910b329a81a6e089bd8b3ea2ac56',
+            query: this.searchString,
+            language: 'it-IT'
+          }})
+          .then( (result) => {
+            result.data.results.forEach((item, i) => {
+              let voteStar = Math.ceil(item.vote_average / 2);
+              let voteEmpty = 5 - voteStar;
+              const newObjMovie = {...item, voteStar: voteStar, voteEmpty: voteEmpty}
+              this.movies.push(newObjMovie);
+            }
+          );
+          console.log('Film',this.movies);
+          console.log('Serie',this.tvShows);
+          this.allCollections = [...this.movies,...this.tvShows];
+          console.log('Collections', this.allCollections);
+          this.searchString = '';
+        }
+      );
     }
   },
-  mounted: function () {
-        axios
-        .get('https://api.themoviedb.org/3/search/movie?',{
-          params: {
-          api_key:'9465910b329a81a6e089bd8b3ea2ac56',
-          query: 'Ritorno',
-          language: 'it-IT'
-        }})
-        .then( (result) => {
-          this.movies = result.data.results;
-          result.data.results.forEach((item, i) => {
-            let voteStar = Math.ceil(item.vote_average / 2);
-            let voteEmpty = 5 - voteStar;
-            this.voteStar.push(voteStar);
-            this.voteEmpty.push(voteEmpty);
-          }
-        );
-      }
-    );
-    axios
-        .get('https:api.themoviedb.org/3/search/tv',{
-          params: {
-          api_key:'9465910b329a81a6e089bd8b3ea2ac56',
-          query: 'Ritorno',
-          language: 'it-IT'
-        }})
-        .then( (result) => {
-          this.tvShows = result.data.results;
-          this.allCollections = [...this.movies,...this.tvShows];
-          console.log(this.allCollections);
-          this.allCollections.forEach((item, i) => {
-            let voteStar = Math.ceil(item.vote_average / 2);
-            let voteEmpty = 5 - voteStar;
-            this.voteStar.push(voteStar);
-            this.voteEmpty.push(voteEmpty);
-            console.log(this.voteStar);
-          }
-        );
-      }
-    );
-  }
+  // mounted: function () {
+  //     axios
+  //       .get('https://api.themoviedb.org/3/search/movie?',{
+  //         params: {
+  //         api_key:'9465910b329a81a6e089bd8b3ea2ac56',
+  //         query: 'Ritorno',
+  //         language: 'it-IT'
+  //       }})
+  //       .then( (result) => {
+  //         this.movies = result.data.results;
+  //         result.data.results.forEach((item, i) => {
+  //           let voteStar = Math.ceil(item.vote_average / 2);
+  //           let voteEmpty = 5 - voteStar;
+  //           this.voteStar.push(voteStar);
+  //           this.voteEmpty.push(voteEmpty);
+  //         }
+  //       );
+  //     });
+  //     axios
+  //       .get('https:api.themoviedb.org/3/search/tv',{
+  //         params: {
+  //         api_key:'9465910b329a81a6e089bd8b3ea2ac56',
+  //         query: 'Ritorno',
+  //         language: 'it-IT'
+  //       }})
+  //       .then( (result) => {
+  //         this.tvShows = result.data.results;
+  //         this.allCollections = [...this.movies,...this.tvShows];
+  //         console.log(this.allCollections);
+  //         this.allCollections.forEach((item, i) => {
+  //           let voteStar = Math.ceil(item.vote_average / 2);
+  //           let voteEmpty = 5 - voteStar;
+  //           this.voteStar.push(voteStar);
+  //           this.voteEmpty.push(voteEmpty);
+  //           console.log(this.voteStar);
+  //         }
+  //       );
+  //     }
+  //   );
+  // }
 });
+
+
+// FUNZIONI---------------------------------------------------
