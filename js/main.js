@@ -35,10 +35,10 @@ var root = new Vue({
           this.clickHamburgerMenu = false;
       }
     },
-    mouseLeave: function () { //close menu mouseLeave
-        this.clickMenu = false;
-        this.clickHamburgerMenu = false;
-    },
+    // mouseLeave: function () { //close menu mouseLeave
+    //     this.clickMenu = false;
+    //     this.clickHamburgerMenu = false;
+    // },
     searchMovie: function () { //ricerca film
       let self = this;
       self.allCollections = [];
@@ -76,6 +76,7 @@ var root = new Vue({
                 setTimeout( () => {
                   //FILM
                   result[0].data.results.forEach((item, i) => {
+                    
                     let voteStar = Math.ceil(item.vote_average / 2);
                     let voteEmpty = 5 - voteStar;
                     const newObjVote = {...item, voteStar: voteStar, voteEmpty: voteEmpty}
@@ -91,6 +92,7 @@ var root = new Vue({
                   );
                   //SERIE TV
                   self.tvShows = [];
+                  console.log(result[1].data.results);
                   result[1].data.results.forEach((item, i) => {
                     let voteStar = Math.ceil(item.vote_average / 2);
                     let voteEmpty = 5 - voteStar;
@@ -99,7 +101,6 @@ var root = new Vue({
                     let nameGenres = [];
                     self.getGenres(item, result[2].data.genres, nameGenres);
                       nameGenres.forEach((item, i) => {
-                        console.log(item);
                         if (!self.genres.includes(item)) {
                           self.genres.push(item);
                         }
@@ -107,7 +108,7 @@ var root = new Vue({
                     }
                   );
                   self.genres.sort();
-                  console.log(self.genres);
+                  // console.log(self.genres);
                 self.allCollections = [...self.movies,...self.tvShows];
                 // console.log(self.movies);
                 // console.log(self.tvShows);

@@ -32,8 +32,7 @@
               <i class="fas fa-sort-down" ></i>
             </a>
           </div>
-          <div class="menu" :class="(clickMenu) ? 'open-menu' : 'close-menu'"
-          v-on:mouseleave="mouseLeave">
+          <div class="menu" :class="(clickMenu) ? 'open-menu' : 'close-menu'">
             <ul class="inline-list">
               <li :class="(searchString == '') ? 'active-menu' : ''">
                 <a href="#">Home</a>
@@ -60,8 +59,7 @@
             <i @click="openInput" class="fas fa-search"></i>
             <input :class="(clickSerach) ? 'active' : 'hidden'" type="text" name="" value=""  v-model="searchString" v-on:keyup="searchMovie" placeholder="titoli, personaggi e generi">
           </div>
-          <div class="menu-nav" :class="(clickHamburgerMenu) ? 'menu-nav-active' : ''"
-          v-on:mouseleave="mouseLeave">
+          <div class="menu-nav" :class="(clickHamburgerMenu) ? 'menu-nav-active' : ''">
             <div class="nav-element">
               <a href="#">Bambini</a>
             </div>
@@ -108,12 +106,12 @@
           </div>
         </div>
         <!-- selseziona genere -->
-        <div v-if="searchString != ''" class="genres-container">
+        <!-- <div v-if="searchString != ''" class="genres-container">
           <select class="genres" name="genre" v-model="selectedGenre">
             <option value="Generi">Generi</option>
             <option v-for="genre in genres" :value="genre">{{ genre }}</option>
           </select>
-        </div>
+        </div> -->
         <!-- /selseziona genere -->
         <div id="movies-container">
           <!-- movie-box -->
