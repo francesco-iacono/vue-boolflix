@@ -73,10 +73,10 @@ var root = new Vue({
               .then( (result) => {
                 self.allCollections = [];
                 self.movies = [];
-                setTimeout( () => {
+                // setTimeout( () => {
                   //FILM
                   result[0].data.results.forEach((item, i) => {
-                    
+                    console.log(item.vote_average);
                     let voteStar = Math.ceil(item.vote_average / 2);
                     let voteEmpty = 5 - voteStar;
                     const newObjVote = {...item, voteStar: voteStar, voteEmpty: voteEmpty}
@@ -92,7 +92,7 @@ var root = new Vue({
                   );
                   //SERIE TV
                   self.tvShows = [];
-                  console.log(result[1].data.results);
+                  // console.log(result[1].data.results);
                   result[1].data.results.forEach((item, i) => {
                     let voteStar = Math.ceil(item.vote_average / 2);
                     let voteEmpty = 5 - voteStar;
@@ -113,7 +113,7 @@ var root = new Vue({
                 // console.log(self.movies);
                 // console.log(self.tvShows);
                 // console.log(self.allCollections);
-              }, 1000)
+              // }, 1000)
             }
           )
         }
